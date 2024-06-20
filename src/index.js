@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
-import { PORT,ENVIROMENT } from "./config/config.js"
+import { PORT,ENVIRONMENT } from "./config/config.js"
 import { db } from "./db/db.js"
 import authRoutes from "./auth/auth.js"
 import { verifyToken } from "./middleware/auth.js"
@@ -14,7 +14,10 @@ const app = express()
 app.disable("x-powered-by")
 
 app.use(express.json())
-app.use(cors())
+app.use(cors(
+  {origin: "http://localhost:5173", 
+  credentials: true}
+))
 app.use(cookieParser())
 
 app.use("/auth",authRoutes)
@@ -32,8 +35,8 @@ app.get("/", verifyToken, (req,res) => {
   if(req.user.exp > tokenTime) {
     res.json("Ruta privada")
   }else{
-    res.redirect(400,ENVIROMENT)
+    res.redirect(400,ENVIRONMENT)
   }
 })
 
-app.listen(PORT, () => console.log(`Servidor corriendo en ${ENVIROMENT}`))
+app.listen(PORT, () => console.log(`Servidor corriendo en ${ENVIRONMENT}`))
