@@ -11,7 +11,7 @@ export const register = async (req,res) => {
     const isMatchUser = await User.findOne({username,email})
 
     if(isMatchUser) {
-      return res.status(400).json("Usuario existente, inicia sesión")
+      return res.sendStatus(400)
     }else{
       const hashedPassword = await bcrypt.hash(password,10)
 
@@ -32,7 +32,7 @@ export const login = async (req,res) => {
     const isMatchUser = await User.findOne({username})
 
     if(!isMatchUser) {
-      return res.json("Usuario inexistente, registrate")
+      return res.sendStatus(400)
     }else{
       const isMatchPassword = await bcrypt.compare(password,isMatchUser.password)
 
@@ -42,7 +42,7 @@ export const login = async (req,res) => {
         res.cookie("token",token)
         res.sendStatus(200)
       }else{
-        res.status(400).json("Contraseña incorrecta")
+        res.sendStatus(400)
       }
     }
   } catch (error) {
