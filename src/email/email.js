@@ -2,14 +2,15 @@ import nodemailer from "nodemailer"
 import { Router } from "express";
 
 import { User } from "../models/users.models.js";
+import { USER_EMAIL,PASSWORD_EMAIL } from "../config/config.js";
 
 const router = Router()
 
 let transporter = nodemailer.createTransport({
     service: "outlook", 
     auth: {
-        user: "matiselt@outlook.es", 
-        pass: "11144550s"
+        user: USER_EMAIL, 
+        pass: PASSWORD_EMAIL
     }
 });
 
@@ -21,7 +22,7 @@ router.post("/recovery", async (req,res) => {
 
     if(user) {
         let mailOptions = {
-                from: "matiselt@outlook.es", 
+                from: USER_EMAIL, 
                 to: email, 
                 subject: "Recuperación de cuenta",
                 html: `
