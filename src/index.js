@@ -6,6 +6,7 @@ import { PORT,ENVIRONMENT } from "./config/config.js"
 import { db } from "./db/db.js"
 import authRoutes from "./auth/auth.js"
 import { verifyToken } from "./middleware/auth.js"
+import emailRoutes from "./email/email.js"
 
 await db()
 
@@ -21,6 +22,7 @@ app.use(cors(
 app.use(cookieParser())
 
 app.use("/auth",authRoutes)
+app.use("/email",emailRoutes)
 
 app.get("/", verifyToken, (req,res) => {
   const date = new Date().getTime()
