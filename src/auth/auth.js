@@ -42,8 +42,8 @@ router.post("/login", async (req,res) => {
       if(isMatchPassword) {
         const token = jwt.sign({username},SECRET_KEY,{expiresIn:"1h"})
 
-        res.cookie("token",token)
-        res.sendStatus(200)
+        res.cookie("token",token,{ maxAge: 3600000 })
+        res.json(isMatchUser)
       }else{
         res.sendStatus(400)
       }
