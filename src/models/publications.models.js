@@ -17,7 +17,7 @@ const publicationSchema = new Schema({
     type:Date,
     required:true
   },
-  likes:[{ type: Schema.Types.ObjectId, ref: "Like" }],
+  likes:[{ type: Schema.Types.ObjectId, ref: "User" }],
   comments:[{ type: Schema.Types.ObjectId, ref: "Comment" }]
 },{timestamps:true})
 

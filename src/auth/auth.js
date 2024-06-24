@@ -7,6 +7,18 @@ import { SECRET_KEY } from "../config/config.js";
 
 const router = Router()
 
+router.get("/:id", async (req,res) => {
+  const {id} = req.params
+
+  try {
+    const user = await User.findById(id)
+
+    res.json(user)
+  } catch (error) {
+    res.sendStatus(400)
+  }
+})
+
 router.post("/register", async (req,res) => {
   const {username,email,password} = req.body
 
@@ -61,6 +73,18 @@ router.put("/recovery/:id", async (req,res) => {
   try {
     const hashedPassword = await bcrypt.hash(password,10)
     await User.findByIdAndUpdate(id,{password:hashedPassword})
+    res.sendStatus(200)
+  } catch (error) {
+    res.sendStatus(400)
+  }
+})
+
+router.put("/like/:id", async (req,res) => {
+  const {id} = req.params
+
+  try {
+    await User.findByIdAndUpdate(id,req.body)
+
     res.sendStatus(200)
   } catch (error) {
     res.sendStatus(400)

@@ -9,7 +9,6 @@ import { verifyToken } from "./middleware/auth.js"
 import emailRoutes from "./email/email.js"
 import publicationRoutes from "./routes/publications.routes.js"
 import commentRoutes from "./routes/comments.routes.js"
-import likeRoutes from "./routes/likes.routes.js"
 
 await db()
 
@@ -28,7 +27,6 @@ app.use("/auth",authRoutes)
 app.use("/email",emailRoutes)
 app.use("/publication",publicationRoutes)
 app.use("/comment",commentRoutes)
-app.use("/like",likeRoutes)
 
 app.get("/", verifyToken, (req,res) => {
   const date = new Date().getTime()

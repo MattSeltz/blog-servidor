@@ -14,7 +14,10 @@ const userSchema = new Schema({
   password:{
     type:String,
     required:true
-  }
+  },
+  publications:[{ type: Schema.Types.ObjectId, ref: "Publication" }],
+  comments:[{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  likes:[{ type: Schema.Types.ObjectId, ref: "Publication" }]
 })
 
 export const User = model("User",userSchema)
