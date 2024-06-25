@@ -1,10 +1,7 @@
 import {Schema,model} from "mongoose"
 
 const publicationSchema = new Schema({
-  author:{
-    type:String,
-    required:true
-  },
+  author:[{ type: Schema.Types.ObjectId, ref: "User" }],
   title:{
     type:String,
     required:true
