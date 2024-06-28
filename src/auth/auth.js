@@ -129,6 +129,23 @@ router.put("/recovery/:id", async (req,res) => {
   }
 })
 
+router.put("/user/:id", async (req,res) => {
+  const {id} = req.params
+
+  const {password,username} = req.body
+
+  try {
+    const imageBuffer = await generateInitialsIcon(username[0].toUpperCase());
+      const cloudinaryResult = await uploadToCloudinary(imageBuffer);
+    const hashedPassword = await bcrypt.hash(password,10)
+    const user = await User.findByIdAndUpdate(id,{password:hashedPassword,username,icon:cloudinaryResult.secure_url},{new:true})
+
+    res.json(user)
+  } catch (error) {
+    res.sendStatus(400)
+  }
+})
+
 router.put("/like/:id", async (req,res) => {
   const {id} = req.params
 
@@ -141,7 +158,20 @@ router.put("/like/:id", async (req,res) => {
   }
 })
 
-router.delete("/logout", (req,res) => {
+router.delete("/user/:id", async (req,res) => {
+  const {id} = req.params
+
+  try {
+    await User.findByIdAndDelete(id)
+
+    res.clearCookie("token")
+    res.sendStatus(200)
+  } catch (error) {
+    res.sendStatus(400)
+  }
+})
+
+router.delete("/logout/:id", (req,res) => {
   res.clearCookie("token")
   res.sendStatus(200)
 })
