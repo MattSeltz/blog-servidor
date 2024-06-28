@@ -15,9 +15,13 @@ const userSchema = new Schema({
     type:String,
     required:true
   },
+  icon:{
+    type:String,
+    required:true
+  },
   publications:[{ type: Schema.Types.ObjectId, ref: "Publication" }],
   comments:[{ type: Schema.Types.ObjectId, ref: "Comment" }],
   likes:[{ type: Schema.Types.ObjectId, ref: "Publication" }]
-})
+},{timestamps:true})
 
 export const User = model("User",userSchema)
