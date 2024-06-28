@@ -50,6 +50,15 @@ const uploadToCloudinary = imageBuffer => {
   });
 }
 
+router.get("/", async (req,res) => {
+  try {
+    const user = await User.find()
+    res.json(user)
+  } catch (error) {
+    res.sendStatus(400)
+  }
+})
+
 router.get("/:id", async (req,res) => {
   const {id} = req.params
 
