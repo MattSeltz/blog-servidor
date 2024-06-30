@@ -28,21 +28,4 @@ app.use("/email",emailRoutes)
 app.use("/publication",publicationRoutes)
 app.use("/comment",commentRoutes)
 
-app.get("/", verifyToken, (req,res) => {
-  const date = new Date().getTime()
-  let numeroStr = date.toString();
-
-  if (numeroStr.length > 10) {
-    numeroStr = numeroStr.substring(0, 10);
-  }
-
-  const tokenTime = parseInt(numeroStr, 10);
-  
-  if(req.user.exp > tokenTime) {
-    res.json("Ruta privada")
-  }else{
-    res.redirect(400,ENVIRONMENT)
-  }
-})
-
 app.listen(PORT, () => console.log(`Servidor corriendo en ${ENVIRONMENT}`))
