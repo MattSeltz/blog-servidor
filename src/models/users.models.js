@@ -21,7 +21,8 @@ const userSchema = new Schema({
   },
   publications:[{ type: Schema.Types.ObjectId, ref: "Publication" }],
   comments:[{ type: Schema.Types.ObjectId, ref: "Comment" }],
-  likes:[{ type: Schema.Types.ObjectId, ref: "Publication" }]
+  likes:[{ type: Schema.Types.ObjectId, ref: "Publication" }],
+  commentLikes:[{ type: Schema.Types.ObjectId, ref: "Comment" }],
 },{timestamps:true})
 
 export const User = model("User",userSchema)

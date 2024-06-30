@@ -158,9 +158,9 @@ router.put("/like/:id", async (req,res) => {
   const {id} = req.params
 
   try {
-    await User.findByIdAndUpdate(id,req.body)
+    const user = await User.findByIdAndUpdate(id,req.body,{new:true})
 
-    res.sendStatus(200)
+    res.json(user)
   } catch (error) {
     res.sendStatus(400)
   }
