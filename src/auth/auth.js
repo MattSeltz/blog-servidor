@@ -65,8 +65,7 @@ router.get("/:id", async (req,res) => {
   try {
     const user = await User.findById(id).populate("comments").populate({
       path:"publications",
-      populate:"likes",
-      populate:"author"
+      populate:["likes","author"],
     })
 
     res.json(user)

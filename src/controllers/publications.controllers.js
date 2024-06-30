@@ -14,7 +14,7 @@ export const getOneData = async (req,res) => {
   const {id} = req.params
 
   try {
-    const publication = await Publication.findById(id).populate("comments").populate("likes").populate("author")
+    const publication = await Publication.findById(id).populate("likes").populate("author").populate({path:"comments",populate:"author"})
 
     res.json(publication)
   } catch (error) {
