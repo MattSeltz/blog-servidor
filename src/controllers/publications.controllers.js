@@ -36,8 +36,11 @@ export const putData = async (req,res) => {
   const {id} = req.params
 
   try {
-    await Publication.findByIdAndUpdate(id,req.body)    
-    res.sendStatus(200)
+    const publication = await Publication.findByIdAndUpdate(id,req.body,{new:true}).populate({
+      path:"comments",
+      populate:"author"
+    })    
+    res.json(publication)
   } catch (error) {
     res.sendStatus(400)
   }

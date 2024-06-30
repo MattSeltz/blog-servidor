@@ -11,6 +11,7 @@ const commentSchema = new Schema({
     required:true
   },
   likes:[{ type: Schema.Types.ObjectId, ref: "User" }],
+  publication:[{ type: Schema.Types.ObjectId, ref: "Publication" }],
 },{timestamps:true})
 
 export const Comment = model("Comment", commentSchema)
