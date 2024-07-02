@@ -50,8 +50,8 @@ export const deleteData = async (req,res) => {
   const {id} = req.params
 
   try {
-    await Publication.findByIdAndDelete(id)
-    res.sendStatus(200)  
+    const publication = await Publication.findByIdAndDelete(id)
+    res.json(publication)  
   } catch (error) {
     res.sendStatus(400)
   }

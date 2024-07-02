@@ -37,8 +37,8 @@ export const putData = async (req,res) => {
   const {id} = req.params
 
   try {
-    await Comment.findByIdAndUpdate(id,req.body)    
-    res.sendStatus(200)
+    const comment = await Comment.findByIdAndUpdate(id,req.body)    
+    res.json(comment)
   } catch (error) {
     res.sendStatus(400)
   }
@@ -48,8 +48,8 @@ export const deleteData = async (req,res) => {
   const {id} = req.params
 
   try {
-    await Comment.findByIdAndDelete(id)
-    res.sendStatus(200)  
+    const comment = await Comment.findByIdAndDelete(id)
+    res.json(comment)  
   } catch (error) {
     res.sendStatus(400)
   }
