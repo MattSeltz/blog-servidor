@@ -12,6 +12,6 @@ export const verifyToken = (req,res,next) => {
 
     next()
   }else{
-    return res.status(400).json("Permiso denegado")
+    return res.sendStatus(400)
   }
 }

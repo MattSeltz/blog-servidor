@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken"
 import { User } from "../models/users.models.js";
 import { SECRET_KEY } from "../config/config.js";
 import {generateInitialsIcon,uploadToCloudinary} from "../upload/upload.js"
+import {verifyToken} from "../middleware/auth.js"
 
 const router = Router()
 
@@ -71,7 +72,7 @@ router.put("/recovery/:id", async (req,res) => {
   }
 })
 
-router.put("/user/:id", async (req,res) => {
+router.put("/user/:id", verifyToken,  async (req,res) => {
   const {id} = req.params
 
   const {password,username} = req.body
@@ -88,7 +89,7 @@ router.put("/user/:id", async (req,res) => {
   }
 })
 
-router.delete("/logout/:id", (req,res) => {
+router.delete("/logout/:id", verifyToken, (req,res) => {
   res.clearCookie("token")
   res.json({message:"OK"})
 })
