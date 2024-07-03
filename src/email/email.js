@@ -15,8 +15,7 @@ let transporter = nodemailer.createTransport({
 });
 
 router.post("/recovery", async (req,res) => {
-    const {token} = req.cookies
-    const {email} = req.body
+    const {email,code} = req.body
 
     const user = await User.findOne({email})
 
@@ -26,8 +25,8 @@ router.post("/recovery", async (req,res) => {
                 to: email, 
                 subject: "Recuperación de cuenta",
                 html: `
-                <h1>Accede al siguiente enlace para generar una nueva contraseña</h1>
-                <a href="http://localhost:3000/email/verify-token/${user._id}?token=${token}" target="_blank">Generar nueva contraseña</a>
+                <h1>Código de recuperación de cuenta:</h1>
+                <p>${code}</p>
                 `
             };
 
@@ -42,14 +41,5 @@ router.post("/recovery", async (req,res) => {
         res.sendStatus(400)
     } 
 })
-
-router.get('/verify-token/:id', (req, res) => {
-  const token = req.query.token;
-  const {id} = req.params
-
-  res.cookie('token', token); 
-
-  res.redirect(`http://localhost:5173/recovery/${id}`); 
-});
 
 export default router
