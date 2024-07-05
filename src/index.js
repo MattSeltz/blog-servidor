@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
-import { PORT,ENVIRONMENT } from "./config/config.js"
+import { PORT,ENVIRONMENT,CORS } from "./config/config.js"
 import { db } from "./db/db.js"
 import authRoutes from "./auth/auth.js"
 import emailRoutes from "./email/email.js"
@@ -18,7 +18,7 @@ app.disable("x-powered-by")
 
 app.use(express.json())
 app.use(cors(
-  {origin: "http://localhost", 
+  {origin: CORS, 
   credentials: true}
 ))
 app.use(cookieParser())

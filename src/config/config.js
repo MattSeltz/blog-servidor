@@ -20,3 +20,5 @@ export const API_KEY = process.env.API_KEY ?? "793988317468657";
 
 export const API_SECRET =
   process.env.API_SECRET ?? "-zvjpmsxkrMkNKIfObrWo_nZQa4";
+
+export const CORS = process.env.CORS ?? "http://localhost:5173"
