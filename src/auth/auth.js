@@ -47,7 +47,7 @@ router.post("/login", async (req,res) => {
       if(isMatchPassword) {
         const token = jwt.sign({username},SECRET_KEY,{expiresIn:"1h"})
 
-        res.cookie("token",token,{ maxAge: 3600000, httpOnly: true, secure: true })
+        res.cookie("token",token,{ maxAge: 3600000, httpOnly: true, secure: true, sameSite: "None" })
         res.json(isMatchUser)
       }else{
         res.status(400).send("Contraseña errónea")
