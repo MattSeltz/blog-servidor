@@ -12,6 +12,6 @@ export const verifyToken = (req,res,next) => {
 
     next()
   }else{
-    return res.sendStatus(400)
+    return res.status(400).send("Falla al verificar Token")
   }
 }

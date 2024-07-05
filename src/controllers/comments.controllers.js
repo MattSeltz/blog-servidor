@@ -29,7 +29,7 @@ export const postData = async (req,res) => {
     await comment.populate(["author","likes"])
     res.json(comment)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al crear comentario")
   }
 }
 
@@ -40,7 +40,7 @@ export const putData = async (req,res) => {
     const comment = await Comment.findByIdAndUpdate(id,req.body)    
     res.json(comment)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al actualizar comentario")
   }
 }
 
@@ -51,6 +51,6 @@ export const deleteData = async (req,res) => {
     const comment = await Comment.findByIdAndDelete(id)
     res.json(comment)  
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al eliminar comentario")
   }
 }

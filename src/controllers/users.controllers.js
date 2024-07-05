@@ -41,7 +41,7 @@ export const putData = async (req,res) => {
 
     res.json(user)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al actualizar usuario")
   }
 }
 
@@ -54,6 +54,6 @@ export const deleteData = async (req,res) => {
     res.clearCookie("token")
     res.json(user)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al eliminar usuario")
   }
 }

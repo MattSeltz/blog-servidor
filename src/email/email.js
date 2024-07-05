@@ -35,10 +35,10 @@ router.post("/recovery", async (req,res) => {
 
             res.sendStatus(200)
         } catch (error) {
-            res.sendStatus(400)
+            res.status(400).send("Falla al enviar email")
         }
     }else{
-        res.sendStatus(400)
+        res.status(400).send("Falla al crear email")
     } 
 })
 

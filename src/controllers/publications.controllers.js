@@ -28,7 +28,7 @@ export const postData = async (req,res) => {
     await publication.save()
     res.json(publication)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al crear propiedad")
   }
 }
 
@@ -42,7 +42,7 @@ export const putData = async (req,res) => {
     })    
     res.json(publication)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al actualizar propiedad")
   }
 }
 
@@ -53,6 +53,6 @@ export const deleteData = async (req,res) => {
     const publication = await Publication.findByIdAndDelete(id)
     res.json(publication)  
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al eliminar propiedad")
   }
 }

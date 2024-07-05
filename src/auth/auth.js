@@ -16,7 +16,7 @@ router.post("/register", async (req,res) => {
     const isMatchUser = await User.findOne({username,email})
 
     if(isMatchUser) {
-      return res.sendStatus(400)
+      return res.status(400).send("Usuario existente")
     }else{
       const imageBuffer = await generateInitialsIcon(username[0].toUpperCase());
       const cloudinaryResult = await uploadToCloudinary(imageBuffer);
@@ -29,7 +29,7 @@ router.post("/register", async (req,res) => {
       res.json(user)
     }
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al crear usuario")
   }
 })
 
@@ -40,21 +40,21 @@ router.post("/login", async (req,res) => {
     const isMatchUser = await User.findOne({username})
 
     if(!isMatchUser) {
-      return res.sendStatus(400)
+      return res.status(400).send("Usuario inexistente")
     }else{
       const isMatchPassword = await bcrypt.compare(password,isMatchUser.password)
 
       if(isMatchPassword) {
         const token = jwt.sign({username},SECRET_KEY,{expiresIn:"1h"})
 
-        res.cookie("token",token,{ maxAge: 3600000 })
+        res.cookie("token",token,{ maxAge: 3600000, httpOnly: true, secure: true })
         res.json(isMatchUser)
       }else{
-        res.sendStatus(400)
+        res.status(400).send("Contraseña errónea")
       }
     }
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al iniciar sesión")
   }
 })
 
@@ -68,7 +68,7 @@ router.put("/recovery/:id", async (req,res) => {
     const user = await User.findByIdAndUpdate(id,{password:hashedPassword})
     res.json(user)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al actualizar usuario")
   }
 })
 
@@ -85,7 +85,7 @@ router.put("/user/:id", verifyToken,  async (req,res) => {
 
     res.json(user)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).send("Falla al actualizar usuario")
   }
 })
 
