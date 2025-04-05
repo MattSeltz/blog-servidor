@@ -24,5 +24,4 @@ Está desarrollado con **Express.js** y se conecta a una base de datos **MongoDB
 - **MongoDB + Mongoose**
 - **JWT**
 - **Nodemailer**
-- **dotenv**
 - **CORS + cookie-parser**
